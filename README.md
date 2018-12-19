@@ -604,34 +604,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 	videoPlayer.pause();
 ```
 
-- **4.1.5 关于VideoPlayer中获取播放状态方法**
-```
-	//判断是否开始播放
-	boolean idle = videoPlayer.isIdle();
-	//判断视频是否播放准备中
-	boolean preparing = videoPlayer.isPreparing();
-	//判断视频是否准备就绪
-	boolean prepared = videoPlayer.isPrepared();
-	//判断视频是否正在缓冲
-	boolean bufferingPlaying = videoPlayer.isBufferingPlaying();
-	//判断是否是否缓冲暂停
-	boolean bufferingPaused = videoPlayer.isBufferingPaused();
-	//判断视频是否暂停播放
-	boolean paused = videoPlayer.isPaused();
-	//判断视频是否正在播放
-	boolean playing = videoPlayer.isPlaying();
-	//判断视频是否播放错误
-	boolean error = videoPlayer.isError();
-	//判断视频是否播放完成
-	boolean completed = videoPlayer.isCompleted();
-	//判断视频是否播放全屏
-	boolean fullScreen = videoPlayer.isFullScreen();
-	//判断视频是否播放小窗口
-	boolean tinyWindow = videoPlayer.isTinyWindow();
-	//判断视频是否正常播放
-	boolean normal = videoPlayer.isNormal();
-```
-
 #### 4.2 关于VideoPlayerController类[控制器]中方法说明
 - **4.2.1 关于控制器方法**
 
@@ -769,24 +741,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 ```
 
 
-#### 5.2 封装的基本思路
-- **5.2.1关于简单的思路分析**
-- a1.可以把视频播放和设置视频属性控制器分离，对于VideoPlayer中，各种UI状态和操作反馈都封装到VideoPlayerController控制器里面。如果需要根据不同的项目需求来修改播放器的功能，就只重写VideoPlayerController就可以了。
-- a2.对于VideoPlayer这个类，可以先创建一个帧布局容器，然后在初始化的时候将视频播放器控制器放到里面，然后通过设置控制器来进行视频播放
-- a3.当调用了开始播放的方法后，就初始化播放器，包括原生的，还有IjkMediaPlayer
-- a4.而基于IjkMediaPlayer的视频播放，需要添加各种监听事件，通过阅读IMediaPlayer源码可以知道：可以在这些监听事件中添加各种对视频的操作逻辑，具体可以看代码。
-
-```
-    void setOnPreparedListener(IMediaPlayer.OnPreparedListener var1);
-    void setOnCompletionListener(IMediaPlayer.OnCompletionListener var1);
-    void setOnBufferingUpdateListener(IMediaPlayer.OnBufferingUpdateListener var1);
-    void setOnSeekCompleteListener(IMediaPlayer.OnSeekCompleteListener var1);
-    void setOnVideoSizeChangedListener(IMediaPlayer.OnVideoSizeChangedListener var1);
-    void setOnErrorListener(IMediaPlayer.OnErrorListener var1);
-    void setOnInfoListener(IMediaPlayer.OnInfoListener var1);
-    void setOnTimedTextListener(IMediaPlayer.OnTimedTextListener var1);
-```
-- a5.定义好了监听事件后，就创建了播放，重置播放，暂停等各种方法
 
 #### 5.3 关于窗口切换分析
 - **5.3.1 关于窗口切换调用的代码**
@@ -1096,23 +1050,6 @@ public class VideoPlayerManager {
 
 
 
-###  7.关于效果图的展示
-#### 7.1 效果图如下所示
-![image](http://p2mqszpjf.bkt.clouddn.com/ycVideoPlayer2.png)
-![image](http://p0u62g00n.bkt.clouddn.com/Screenshot_2018-01-05-13-21-49.jpg)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_2018-01-16-11-22-43.jpg)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_2018-01-16-11-24-31.jpg)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113446.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113706.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113721.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113732.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113802.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-113840.png)
-![image](http://p2mqszpjf.bkt.clouddn.com/Screenshot_20180116-135824.png)
-
-
-
-
 ### 8.关于遇到的问题说明
 #### 8.1 视频难点
 - 8.1.1 当视频切换全屏或者从全屏切换到正常小屏幕时，如何管理activity的生命周期
@@ -1136,161 +1073,10 @@ public class VideoPlayerManager {
 - 8.5.6 待定
 
 
-### 9.关于版本更新说明
-- **9.1 V1.0.0 更新于2017年10月4日**
-> 初期最简单功能
-- 9.1.1 支持最简单视频播放，暂停，缓冲，全屏播放等基础功能。
-- 9.1.2 支持滑动改变音量，改变声音大小的功能
-- 9.1.3 还有其他基本功能
-
-- 
-
-- **9.2 V1.0.1 更新于2017年11月18日**
-- 最简单的封装，并且阅读相关视频案例，借鉴了相关思路和复用了部分代码
-- 测试环节
-
-- **9.3 v1.1.0 更新于2018年1月15日**
-
-> 添加部分功能
-> 
-- 9.3.1 添加了设置视频播放权限的功能，用户可以自由设置权限，不过目前只是设置了用户是否登录，和登录用户是否有观看权限，因为公司需求是这样的，所以只有这两个。后期遇到其他需求再添加。逻辑已经在库中写好了，用户自己实现就可以呢。
-- 9.3.2 关于权限肯定有话术内容，那么用户可以通过调用接口直接设置展示在播放器试看结束后的内容。十分方便，这块参考了优酷和爱奇艺视频
-- 9.3.3 添加了用户多久不操作视频界面后，自动隐藏底部和头部布局视图。如果不设置，默认时间为5秒
-- 9.3.4 添加了多种视频加载时候的加载效果，目前有两种，一种是转圈效果，一种是帧动画效果。当然你可以自己添加动画加载效果
-
-
-- **9.4 v1.1.1 更新于2018年1月18日**
-
-> 修改了部分bug
->
-- 9.4.1 修改了视频横向播放时，点击手机物理返回键，画面展示状态栏问题
-- 9.4.2 修改了在list页面(recyclerView)的视频，当上拉加载更多时，加载十几次会导致崩溃问题
-- 9.4.3 精简了布局文件，方便修改定制和阅读
-- 9.4.4 修改了在网络不好或者飞行模式下，用户播放视频，应该是播放错误而不是一直转圈加载问题
-- 9.4.5 完善了代码的注释，现在几乎所有的方法都有相关注释，方便阅读和理解。去掉了无用的代码
-
--
-
-> 添加了部分功能
->
-- 9.4.6 添加了暴露接口之用户登录和用户购买会员的接口，用户可以自己实现监听之后的操作或者跳转页面
-- 9.4.7 添加了视频左上方的返回键监听，用户可以自己实现返回逻辑
-- 9.4.8 添加了锁定屏幕方向的功能，还在测试中，有点问题
-
-
-### 10.关于参考文档说明
-#### 10.1 参考的项目
-- **10.1.1参考的开源项目有**
-
-```
-https://github.com/CarGuo/GSYVideoPlayer
-https://github.com/danylovolokh/VideoPlayerManager
-https://github.com/HotBitmapGG/bilibili-android-client
-https://github.com/jjdxmashl/jjdxm_ijkplayer
-https://github.com/JasonChow1989/JieCaoVideoPlayer-develop          2年前
-https://github.com/open-android/JieCaoVideoPlayer                   1年前
-https://github.com/lipangit/JiaoZiVideoPlayer                       4个月前
-https://github.com/xiaoyanger0825/NiceVieoPlayer
-https://github.com/curtis2/SuperVideoPlayer
-https://github.com/tcking/GiraffePlayer
-```
-
-#### 10.2 参考的博客
-- **10.2.1参考的博客有**'
-
-```
-https://segmentfault.com/a/1190000011959615
-http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1213/2153.html
-http://blog.csdn.net/junwang19891012/article/details/8444743
-https://www.jianshu.com/p/420f7b14d6f6
-http://blog.csdn.net/candicelijx/article/details/39495271
-```
-
-
-### 11.关其他说明
-#### 11.1 目前市场流行的视频框架
-- 1.Android原生VideoView
-- 2.Google 开源视频播放框架 ExoPlayer
-- 3.Vitamio 视频播放框架
-- 4.Bilibili 开源视频播放框架ijkplayer
-
-
-#### 11.2 如何选择
-- **11.2.1.Android原生VideoView**
-* 1.1 VideoView 的使用非常简单，播放视频的步骤：
-	* 在界面布局文件中定义 VideoView 组件，或在程序中创建 VideoView 组件
-	* 调用 VideoView 的如下两个方法来加载指定的视频：
-		* setVidePath(String path)：加载 path 文件代表的视频
-		* setVideoURI(Uri uri)：加载 uri 所对应的视频
-	* 调用 VideoView 的 start()、stop()、psuse() 方法来控制视频的播放
-
-
-- **11.2.2.Google 开源视频播放框架 ExoPlayer**
-* 2.1 框架地址：https://github.com/google/ExoPlayer
-* 2.2 用法
-	* ExoPlayer 开源项目包含了 library 和 示例：
-		* ExoPlayer library – 这部分是核心的库
-		* Demo app – 这部分是演示怎么使用 ExoPlayer 的 Demo
-	* ExoPlayer 库的核心类是 ExoPlayer 类。该类维护了播放器的全局状态 。比如如何获取媒体数据，如何缓冲以及是怎样的编码格式。
-	* ExoPlayer 基于 MediaCodec 和 AudioTrack 提供了默认的音视频的 TrackRenderer 实现。所有的 renderers 都需要 SampleSource 对象，ExoPlayer 从 SampleSource 获得 media samples 用于播放。下图展示了 ExoPlayer 是如何配置组合这些组件用于播放音视频的。
-	* standard-model
-	* ExoPlayer 库提供了一些不同类型的 SampleSource 实例：
-	* ExtractorSampleSource – 用于 MP3，M4A，WebM，MPEG-TS 和 AAC；
-		* ChunkSampleSource – 用于 DASH 和平滑流的播放；
-		* HlsSampleSource – 用于 HLS 播放；
-	* 在 ExoPlayer 的 Dome 中使用 DemoPlayer 对 ExoPlayer 进行了封装，并提供了使用上述几种 SampleSource 构建 TrackRenderer 的 Builder。
-		* SmoothStreamingRendererBuilder
-		* DashRendererBuilder
-		* ExtractorRendererBuilder
-	* 在使用的时候我们根据不同的需求创建对应的 RendererBuilder，然后将 RendererBuilder 传递给 DemoPlayer 然后调用 DemoPlayer 的 setPlayWhenReady 方法。
-* 2.3 优缺点
-* ExoPlayer 相较于 MediaPlayer 有很多很多的优点：
-	* 支持动态的自适应流 HTTP (DASH) 和 平滑流，任何目前 MediaPlayer 支持的视频格式（同时它还支持 HTTP 直播(HLS)，MP4，MP3，WebM，M4A，MPEG-TS 和 AAC）。
-	* 支持高级的 HLS 特性，例如正确处理 EXT-X-DISCONTINUITY 标签；
-	* 支持自定义和扩治你的使用场景。ExoPlayer 专门为此设计；
-	* 便于随着 App 的升级而升级。因为 ExoPlayer 是一个包含在你的应用中的库，对于你使用哪个版本有完全的控制权，并且你可以简单的跟随应用的升级而升级；
-	* 更少的适配性问题。
-* ExoPlayer 的缺点：
-	* ExoPlayer 的音频和视频组件依赖 Android 的 MediaCodec 接口，该接口发布于 Android4.1（API 等级 16）。因此它不能工作于之前的Android 版本。
 
 
 
-- **11.2.3.Vitamio 视频播放框架**
-* 3.1 用法
-* 官网：https://www.vitamio.org
-* Vitamio 的使用步骤：
-	* 1.下载 Vitamio 库，并作为工程依赖。
-	* 2.在 Activity 的 onCreate 方法中添加如下代码，初始化 Vitamio 的解码器
-* 3.2 优点
-	* 强大，支持超多格式视频和网络视频播放。
-	* 使用简单。调用非常简单，方便使用。
-	* 其官方还给出了其他很多优点，但是个人觉得不足以成为优点。
 
 
-- **11.2.4.Bilibili 开源视频播放框架ijkplayer**
-* 4.1 特点
-	* HTTPS支持
-	* 支持弹幕
-	* 支持基本的拖动，声音、亮度调节
-	* 支持边播边缓存
-	* 支持视频本身自带rotation的旋转（90,270之类），重力旋转与手动旋转的同步支持
-	* 支持列表播放，直接添加控件为封面，列表全屏动画，视频加载速度，列表小窗口支持拖动
-	* 5.0的过场效果，调整比例，多分辨率切换
-	* 支持切换播放器，进度条小窗口预览
-	* 其他一些小动画效果，rtsp、concat、mpeg
-* 4.2  优缺点
-	* ijkplayer 最大的优点就是可以根据需要编译需要的解码器。在编译的时候通过 ln -s module-default.sh module.sh 选择要编译的解码器。ijkplayer 在 config 目录下提供了三种 module.sh 。也可自己修改 module.sh 。
-	* ijkplayer 的缺点是库太大。加入项目后会大大增加你的 APP 的大小。
-
-
-#### 11.3 关于我的个人博客和站点
-- **github：** [https://github.com/yangchong211](https://github.com/yangchong211)
-- **知乎：** [https://www.zhihu.com/people/yang-chong-69-24/pins/posts](https://www.zhihu.com/people/yang-chong-69-24/pins/posts)
-- **简书：** [http://www.jianshu.com/u/b7b2c6ed9284](http://www.jianshu.com/u/b7b2c6ed9284)
-- **csdn：** [http://my.csdn.net/m0_37700275](http://my.csdn.net/m0_37700275)
-- **喜马拉雅听书：** [http://www.ximalaya.com/zhubo/71989305/](http://www.ximalaya.com/zhubo/71989305/)
-- 泡在网上的日子：[http://www.jcodecraeer.com/member/content_list.php?channelid=1](http://www.jcodecraeer.com/member/content_list.php?channelid=1)
-- 邮箱：yangchong211@163.com
-- 阿里云博客：[https://yq.aliyun.com/users/article?spm=5176.100239.headeruserinfo.3.dT4bcV](https://yq.aliyun.com/users/article?spm=5176.100239.headeruserinfo.3.dT4bcV)
 
 
