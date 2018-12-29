@@ -107,7 +107,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--https://github.com/yangchong211-->
-    <!--如果你觉得好，请给个star，让更多人使用，避免重复造轮子-->
+   
     <!--底图，主要是显示视频缩略图-->
     <ImageView
         android:id="@+id/image"
@@ -302,8 +302,6 @@ compile 'cn.yc:YCVideoPlayerLib:2.2'
 		android:screenOrientation="portrait"/>
 ```
 
-#### 2.5 关于开源库中的类说明
-- ![image](http://p2mqszpjf.bkt.clouddn.com/ycVideoPlayer1.png)
 
 #### 2.6 暴露接口让用户实现返回键和登录和购买会员点击事件逻辑
 ```
@@ -830,7 +828,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 - 8.2.1 当视频切花时，如何避免视频不卡顿
 - 8.2.2 在fragment中，当左右滑动出另一个fragment中，视频还在播放，怎么样处理这部分逻辑
 - 8.2.3 在显示缓冲比时，网络不好或者暂停缓冲时有问题，所以暂停还没有添加该功能
-- 8.2.4 播放进度条seekbar跳动问题，有人反映不是那么顺畅
+- 8.2.4 播放进度条seekbar跳动问题
 - 8.2.5 部分华为手机播放视频有问题，在找原因
 - 8.2.6 在拖动时显示当前帧的画面图片，类似优酷那个功能，最终还是没有实现
 
