@@ -48,13 +48,6 @@
 - 11.3 关于我的个人博客和站点
 
 
-### 0.备注
-- 仿照爱奇艺，优酷播放器写的，十分感谢GitHub上大神前辈们的开源案例和思路。
-- 支持插入广告，设置视频观看权限，观看完后登录或者购买会员。我看到在star较多的项目issues中，有些人正好需要这个案例，库集成后直接通过代码调用即可，灵活且拓展性强。
-- 由于调到做视频的部门，因此此部分代码会持续更新，也欢迎同行提bug或者问题
-- 如果你觉得还可以，给个star吧！我也在持续学习中！！！
-- 项目地址：https://github.com/yangchong211/YCVideoPlayer
-
 
 ### 1.关于此视频封装库介绍
 #### 1.1 能够满足那些业务需求
@@ -103,38 +96,9 @@
 - D.1.3 后期待定
 
 
-#### 1.2 对比同类型的库有哪些优势
-
-> **1.2.1目前仅仅查了下GitHub上项目**
-> 
-- 目前GitHub上比较流行的库
-- 至于官方库就不说了，jiecao的库是基于ijkplayer视频框架，目前封装库有许多，下面几个只是star比较多，其中jiecao库比较类似。
-```
-ijkplayer官方库
-https://github.com/Bilibili/ijkplayer
-Vitamio官方库
-https://github.com/yixia/VitamioBundle
-以jiecao为例的封装库
-https://github.com/JasonChow1989/JieCaoVideoPlayer-develop          2年前
-https://github.com/open-android/JieCaoVideoPlayer                   1年前
-https://github.com/lipangit/JiaoZiVideoPlayer                       4个月前
-https://github.com/CarGuo/GSYVideoPlayer
-其他库
-https://github.com/danylovolokh/VideoPlayerManager
-```
 
 -
 
-> **1.2.2 具有的优势**
-> 
-- **A.代码布局更加简洁，而且无多余代码**
-- **B.几乎没有多少淡黄色警告，关于注释，通过使用阿里编码插件检测后更加规范，我对代码有洁癖**
-- **C.视频播放器[负责播放]，视频控制器[负责视频播放各种点击或者属性设置操作]，控制器抽象类[定义属性抽象类，供子类实现]，其他可以看代码。结构分层上比较清晰**
-- **D.几乎所有的方法或者重要的成员或者局部变量都有相关的注释，注释的内容非常详细**
-- **E.关于视频属性设置或者按钮点击事件，都可以通过设置相关方法灵活实现。**
-- 首先这些库封装的思路和代码都不错，我也是借鉴他们的思路，在他们的思路上改进而封装的。
-- **相比来说代码结构更加清晰，举几个例子**
-- 针对视频播放页面布局，由于视频播放状态众多，我封装这库不同状态布局有十几种，许多库的视图布局没注释，显示比较臃肿，如果修改或者定位，不熟悉或者好久不操作，都要花时间找。展示我的布局代码
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -470,60 +434,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 }
 ```
 
-#### 3.3 小窗口视频播放
-- **3.3.1建议在设置小窗口先先判断视频播放器是否开始播放**
-
-```
-	if (videoPlayer.isIdle()) {
-		Toast.makeText(this, "要点击播放后才能进入小窗口", Toast.LENGTH_SHORT).show();
-	} else {
-		videoPlayer.enterTinyWindow();
-	}
-```
-
-
-#### 3.4 类似爱奇艺，优酷会员试看视频播放
-- **3.4.1 可以参考——2.3.2 关于模仿爱奇艺登录会员权限功能代码**
-
-#### 3.5 关于封装库中日志打印
-- **3.5.1关于封装库中日志打印设置**
-- 如果上线产品后不想打印日志，可以在初始化时设置，注意需要在初始化播放器之前设置
-
-```
-    //如果不想打印库中的日志，可以设置
-    VideoLogUtil.isLog = false;
-```
-
-- **3.5.3关于日志工具类代码**
-
-```
-    public class VideoLogUtil {
-    
-        private static final String TAG = "YCVideoPlayer";
-        public static boolean isLog = true;
-    
-        static void d(String message) {
-            if(isLog){
-                Log.d(TAG, message);
-            }
-    
-        }
-    
-        static void i(String message) {
-            if(isLog){
-                Log.i(TAG, message);
-            }
-    
-        }
-    
-        static void e(String message, Throwable throwable) {
-            if(isLog){
-                Log.e(TAG, message, throwable);
-            }
-        }
-    }
-```
-
 ### 4.关于相关方法说明
 #### 4.1 关于VideoPlayer类中方法说明
 - **4.1.1 关于一定需要这四步**
@@ -717,23 +627,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 ```
 
 
-### 5.关于封装的思路
-#### 5.1 参考的案例思路
-- **5.1.1目前参考的案例有**
-- 可以直接看下面的参考案例，有记录
-- **5.1.2针对jiaozi代码简单分析**
-- JZVideoPlayer为继承自FrameLayout实现的一个组合自定义View来实现了视频播放器的View相关的内容。
-- JZVideoPlayerStandard则是继承自JZVideoPlayer实现了一些自身的功能。
-- JZMediaManager是用来对于MediaPlayer的管理，对于MediaPlayer的一些监听器方法的回调和TextrueView的相关回调处理。
-- JZVideoPlayerManager管理JZVideoPlayer
-- 和自定义相关的工作，最主要是先继承JCVideoPlayerStandard
-- JZMediaSystem主要是实现系统的播放引擎
-- 不得不说，大神封装代码的思路以及代码逻辑的确很强
-- **关于封装库其他感受**
-- 第一：不过，感觉大神更新频率大高，而且没有找到每次更新的日志说明，不知道大神又解决了那些bug
-- 第二：黄色警告多，而且注释少，因为视频封装库不像一般库，有时候需求不同，可拓展性要求高。除了自己继承JCVideoPlayerStandard创建视频播放器，其他如果想改代码，还是有点复杂的。
-- 第三：关于使用虽然很简单，但是在JZVideoPlayerStandard这个方法中，布局的对象都是用public修饰，如果你要想自己甚至某个控件背景或者图标等等，则要这样应用。如果你不去看看源代码中布局名称，你根本就不知道这个对象对应的是什么东西。对于不同修饰符，要合适的，如果不合适，那么就会有淡黄色警告。我看了buttonKnife，retrofit，阿里vlayout等等，可以说黄色警告很少……
-
 ```
   Picasso.with(this)
                 .load("http://jzvd-pic.nathen.cn/jzvd-pic/1bb2ebbe-140d-4e2e-abd2-9e7e564f71ac.png")
@@ -761,65 +654,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 ```
 
 
-####  5.4 关于VideoPlayerManager视频播放器管理器分析
-- **5.4.1可以直接看源代码，我对每个方法都有详细的注释**
-
-```
-public class VideoPlayerManager {
-
-    private VideoPlayer mVideoPlayer;
-    private static VideoPlayerManager sInstance;
-    private VideoPlayerManager() {}
-    //一定要使用单例模式，保证同一时刻只有一个视频在播放，其他的都是初始状态
-    public static synchronized VideoPlayerManager instance() {
-        if (sInstance == null) {
-            sInstance = new VideoPlayerManager();
-        }
-        return sInstance;
-    }
-
-    public VideoPlayer getCurrentVideoPlayer() {
-        return mVideoPlayer;
-    }
-
-    void setCurrentVideoPlayer(VideoPlayer videoPlayer) {
-        if (mVideoPlayer != videoPlayer) {
-            releaseVideoPlayer();
-            mVideoPlayer = videoPlayer;
-        }
-    }
-    //当视频正在播放或者正在缓冲时，调用该方法暂停视频
-    public void suspendVideoPlayer() {
-        if (mVideoPlayer != null && (mVideoPlayer.isPlaying() || mVideoPlayer.isBufferingPlaying())) {
-            mVideoPlayer.pause();
-        }
-    }
-    //当视频暂停时或者缓冲暂停时，调用该方法重新开启视频播放
-    public void resumeVideoPlayer() {
-        if (mVideoPlayer != null && (mVideoPlayer.isPaused() || mVideoPlayer.isBufferingPaused())) {
-            mVideoPlayer.restart();
-        }
-    }
-    //释放，内部的播放器被释放掉，同时如果在全屏、小窗口模式下都会退出
-    public void releaseVideoPlayer() {
-        if (mVideoPlayer != null) {
-            mVideoPlayer.release();
-            mVideoPlayer = null;
-        }
-    }
-     //处理返回键逻辑.如果是全屏，则退出全屏 如果是小窗口，则退出小窗口
-    public boolean onBackPressed() {
-        if (mVideoPlayer != null) {
-            if (mVideoPlayer.isFullScreen()) {
-                return mVideoPlayer.exitFullScreen();
-            } else if (mVideoPlayer.isTinyWindow()) {
-                return mVideoPlayer.exitTinyWindow();
-            }
-        }
-        return false;
-    }
-}
-```
 
 #### 5.5 关于VideoPlayerController视频控制器分析
 - **5.5.1VideoPlayerController的作用**
@@ -871,70 +705,6 @@ public class VideoPlayerManager {
 	//videoPlayer.setClarity(list,720);
 	//设置视频控制器
 	videoPlayer.setController(controller);
-```
-
-#### 5.6 关于InterVideoPlayer接口分析
-- **5.6.1关于此接口方法有**
-- 跟jiaozi代码类似
-
-```
-    /**
-     * 设置视频Url，以及headers
-     *
-     * @param url           视频地址，可以是本地，也可以是网络视频
-     * @param headers       请求header.
-     */
-    void setUp(String url, Map<String, String> headers);
-
-    /**
-     * 开始播放
-     */
-    void start();
-
-    /**
-     * 从指定的位置开始播放
-     *
-     * @param position      播放位置
-     */
-    void start(long position);
-
-    /**
-     * 重新播放，播放器被暂停、播放错误、播放完成后，需要调用此方法重新播放
-     */
-    void restart();
-
-    /**
-     * 暂停播放
-     */
-    void pause();
-
-    /**
-     * seek到制定的位置继续播放
-     *
-     * @param pos 播放位置
-     */
-    void seekTo(long pos);
-
-    /**
-     * 设置音量
-     *
-     * @param volume 音量值
-     */
-    void setVolume(int volume);
-
-    /**
-     * 设置播放速度，目前只有IjkPlayer有效果，原生MediaPlayer暂不支持
-     *
-     * @param speed 播放速度
-     */
-    void setSpeed(float speed);
-
-    /**
-     * 开始播放时，是否从上一次的位置继续播放
-     *
-     * @param continueFromLastPosition true 接着上次的位置继续播放，false从头开始播放
-     */
-    void continueFromLastPosition(boolean continueFromLastPosition);
 ```
 
 
