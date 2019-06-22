@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.cvn.videoplayer">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="org.cvn.videoplayer.ui.main.view.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
@@ -63,12 +65,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
         <activity android:name="org.cvn.videoplayer.ui.test.test4.MediaPlayerActivity"/>
-
-       <!-- <activity android:name=".ui.test.test3.ui.activity.DLSingleTestActivity"/>
-        <activity android:name=".ui.test.test3.ui.activity.DLHybridTestActivity"/>
-        <activity android:name=".ui.test.test3.ui.activity.DLManyTestActivity"/>
-        <activity android:name=".ui.test.test3.ui.activity.DLMyFileTestActivity"/>
-        <activity android:name=".ui.test.test3.ui.activity.DLNotificationTestActivity"/>-->
 
     </application>
 

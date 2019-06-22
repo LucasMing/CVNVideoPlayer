@@ -175,7 +175,8 @@ public class VideoPlayerMeActivity extends BaseActivity implements VideoPlayerMe
             public void onVideoControlClick(int type) {
                 switch (type){
                     case ConstantKeys.VideoControl.DOWNLOAD:
-                        ToastUtil.showToast(VideoPlayerMeActivity.this,"下载音视频");
+                        //下载视频
+                        showDownloadDialog();
                         break;
                     case ConstantKeys.VideoControl.AUDIO:
                         ToastUtil.showToast(VideoPlayerMeActivity.this,"切换音频");
@@ -260,7 +261,7 @@ public class VideoPlayerMeActivity extends BaseActivity implements VideoPlayerMe
                                 ToastUtil.showToast(VideoPlayerMeActivity.this,"收藏视频");
                                 break;
                             case R.id.iv_player_download:
-                                ToastUtil.showToast(VideoPlayerMeActivity.this,"下载视频");
+                                //下载视频
                                 showDownloadDialog();
                                 presenter.startDownload();
                                 break;

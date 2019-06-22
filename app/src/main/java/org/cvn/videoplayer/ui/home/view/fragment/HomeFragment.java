@@ -19,6 +19,7 @@ import com.yc.cn.ycbannerlib.first.util.SizeUtil;
 import com.yc.cn.ycbaseadapterlib.BaseViewHolder;
 
 import org.cvn.videoplayer.api.constant.Constant;
+import org.cvn.videoplayer.api.constant.ConstantImage;
 import org.cvn.videoplayer.base.BaseConfig;
 import org.cvn.videoplayer.base.mvp1.BaseFragment;
 import org.cvn.videoplayer.ui.home.view.activity.VideoPlayerMeActivity;
@@ -353,8 +354,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 final ImageView ivImage = holder.getView(R.id.iv_image);
                 //设置图片宽与高的比例
                 ImageUtil.setAspectRatio(ivImage,2,(float)4/3,0,activity);
-                ivImage.setBackgroundResource(R.drawable.bg_small_tree_min);
-                //String image = ConstantImage.homePageConcentration[position];
+                ivImage.setBackgroundResource(ConstantImage.homeImgs[position]);
                 //ImageUtil.loadImgByPicasso(activity,ConstantImage.homePageConcentration[position],R.drawable.image_default,ivImage);
                 holder.getView(R.id.ll_item).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -469,7 +469,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             public void onBindViewHolder(BaseViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
                 ImageView ivImage = holder.getView(R.id.iv_image);
-                ivImage.setImageResource(R.drawable.bg_small_leaves_min);
+                ivImage.setImageResource(ConstantImage.homeImgs[position]);
             }
         };
         mAdapters.add(adapter);

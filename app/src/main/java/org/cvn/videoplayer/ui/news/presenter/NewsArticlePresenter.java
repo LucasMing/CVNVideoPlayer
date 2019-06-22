@@ -1,5 +1,6 @@
 package org.cvn.videoplayer.ui.news.presenter;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.TimeUtils;
@@ -39,6 +40,7 @@ public class NewsArticlePresenter implements INewsArticle.Presenter {
         this.time = TimeUtils.getNowString();
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void doLoadData(String... category) {
 
