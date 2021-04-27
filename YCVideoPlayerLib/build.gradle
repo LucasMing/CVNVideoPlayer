@@ -25,11 +25,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.4.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:25.4.0'
     //这两个是必须要加的，其它的可供选择
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.4'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.4'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.4'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.4'
     //其他库文件
     //compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
     //compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
